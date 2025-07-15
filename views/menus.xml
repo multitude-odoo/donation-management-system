@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+
+<data>
+	<menuitem id="menu_donation" name="Donations"  sequence="210" web_icon="donation_system/static/description/icon.png"  />
+
+	<!-- Hgp Hostel Process Menus -->
+<!--	<menuitem id="menu_hgp_hostel_process" name="Process" parent="menu_hgp_hostel" sequence="1" />-->
+<!--	<menuitem id="menu_hgp_hosteller_process" name="Hosteller" parent="menu_hgp_hostel_process" sequence="2" />-->
+
+	<!-- Hgp Hostel Activity Menus -->
+<!--	<menuitem id="menu_hgp_hostel_activity" name="Activity" parent="menu_hgp_hostel" sequence="2" />-->
+<!--	<menuitem id="menu_allocation_hostel_activity" name="Allocation" parent="menu_hgp_hostel_activity" sequence="1" />-->
+
+	<!-- Hgp Hostel Report Menus -->
+<!--	<menuitem id="menu_hgp_hostel_report" name="Report" parent="menu_hgp_hostel" sequence="3" />-->
+
+	<!-- Hgp Hostel Configuration Menus -->
+	<menuitem id="menu_donation_config" name="Configuration" parent="menu_donation" sequence="4" />
+</data>
+</odoo>

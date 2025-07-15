@@ -1,0 +1,44 @@
+<odoo>
+  <!-- Donor List Page -->
+  <template id="donor_list_template" name="Donor List">
+    <t t-call="website.layout">
+      <div class="container mt-5">
+        <h2>Our Donors</h2>
+        <div class="row">
+          <t t-foreach="donors" t-as="donor">
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img t-if="donor.image" t-att-src="'/web/image/%s/%s/image' % (donor._name, donor.id)" class="card-img-top" style="height:200px; object-fit:cover;" />
+                <div class="card-body">
+                  <h5 class="card-title"><t t-esc="donor.name" /></h5>
+                  <p class="card-text">Phone: <t t-esc="donor.phone" /></p>
+                  <a t-att-href="'/donor/%s' % donor.id" class="btn btn-primary">View Profile</a>
+                </div>
+              </div>
+            </div>
+          </t>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <!-- Donor Detail Page -->
+  <template id="donor_detail_template" name="Donor Detail">
+    <t t-call="website.layout">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-4">
+            <img t-if="donor.image" t-att-src="'/web/image/%s/%s/image' % (donor._name, donor.id)" class="card-img-top" style="height:200px; object-fit:cover;" />
+          </div>
+          <div class="col-md-8">
+            <h2><t t-esc="donor.name" /></h2>
+            <p><strong>Email:</strong> <t t-esc="donor.email" /></p>
+            <p><strong>Phone:</strong> <t t-esc="donor.phone" /></p>
+            <p><strong>Address:</strong> <t t-esc="donor.address" /></p>
+<!--            <p><strong>Campaign:</strong> ₹<t t-esc="donor.address" /></p>-->
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

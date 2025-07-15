@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_donation_campaign_read_all,donation.campaign,model_donation_campaign,,1,1,1,1
+access_donation_donor_read_all,donation.donor,model_donation_donor,,1,1,1,1
+access_donation_volunteer,donation.volunteer,model_donation_volunteer,,1,1,1,1
+access_donation_donation,donation.donation,model_donation_donation,,1,1,1,1
+,,,,,,,

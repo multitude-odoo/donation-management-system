@@ -1,0 +1,106 @@
+<odoo>
+    <data>
+        <record id="view_form_donor" model="ir.ui.view">
+            <field name="name">donation.donor.form</field>
+            <field name="model">donation.donor</field>
+            <field name="arch" type="xml">
+                <form string="Donor">
+                    <sheet>
+                        <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="address"/>
+                            <field name="donor_type" widget="radio" options="{'horizontal':true}"/>
+                        </group>
+                            <group>
+                                <div class="font-italic">
+                            <field name="image" string=" Image" widget="image" style="float:left" class="oe_avatar"  options="{'preventClicks': false}"/>
+                              (Image size should be less than
+                            <b>2 MB</b>
+                            and only
+                            <br/>
+                            </div>
+                                <field name="campaign_id" options="{'no_create': True, 'no_open': True}" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_list_donor" model="ir.ui.view">
+            <field name="name">donation.donor.list</field>
+            <field name="model">donation.donor</field>
+            <field name="arch" type="xml">
+                <list string="Donors">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="donor_type"/>
+                </list>
+            </field>
+        </record>
+
+
+        <record id="view_search_donor" model="ir.ui.view">
+			<field name="name">donation.donor.search</field>
+			<field name="model">donation.donor</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="name" />
+					<field name="email" />
+					<field name="phone" />
+                    <group expand="0" string="Group By">
+						<filter name="donor_type" string="Donor Type"
+							context="{'group_by': 'donor_type'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+        <record id="view_donor_kanban" model="ir.ui.view">
+        <field name="name">donation.donor.kanban</field>
+        <field name="model">donation.donor</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('donation.donor', 'image', record.id.value)" class="oe_kanban_avatar" alt="Image"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div><field name="email"/></div>
+                                <div><field name="phone"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+        <record id="action_donation_donor" model="ir.actions.act_window">
+            <field name="name">Donors</field>
+            <field name="res_model">donation.donor</field>
+            <field name="view_mode">kanban,list,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create your first donor</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_donation_donor_root" name="Donors" parent="menu_donation_config"
+                  action="action_donation_donor" sequence="2"/>
+    </data>
+</odoo>
