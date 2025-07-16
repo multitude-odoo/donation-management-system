@@ -16,3 +16,16 @@ class DonorWebsiteController(http.Controller):
         return request.render('donation_system.donor_detail_template', {
             'donor': donor
         })
+
+
+
+class DonationPortal(http.Controller):
+
+    @http.route('/donate', type='http', auth='public', website=True, csrf=False)
+    def donation_home(self, **kwargs):
+        return request.render("donation_system.donation_selection_template", {})
+
+
+    @http.route('/donate/form', type='http', auth='public', website=True)
+    def donation_form(self, **kwargs):
+        return request.render("donation_system.donation_form_template", {})
