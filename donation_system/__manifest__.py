@@ -21,6 +21,7 @@
         'views/donations.xml',
         'views/campaign_template.xml',
         'views/donor_template.xml',
+        'views/donation_form.xml',
 
     ],
     'qweb': [
