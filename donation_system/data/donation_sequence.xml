@@ -1,0 +1,11 @@
+<odoo>
+    <data noupdate="1">
+        <record id="seq_donation_reference" model="ir.sequence">
+            <field name="name">Donation Reference</field>
+            <field name="code">donation.donation</field>
+            <field name="prefix">DON/</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+        </record>
+    </data>
+</odoo>

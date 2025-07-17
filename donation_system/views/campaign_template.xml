@@ -1,0 +1,299 @@
+<odoo>
+  <!-- Campaign List Template -->
+  <template id="campaign_list_template" name="Campaign List">
+    <t t-call="website.layout">
+      <div class="container my-5">
+        <h2>All Campaigns</h2>
+        <div class="row">
+          <t t-foreach="campaigns" t-as="campaign">
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <img t-if="campaign.image" t-att-src="'/web/image/%s/%s/image' % (campaign._name, campaign.id)" class="card-img-top" style="height:100px; object-fit:cover;" />
+                <div class="card-body">
+                  <h5 class="card-title"><t t-esc="campaign.title" /></h5>
+                  <p><t t-esc="campaign.description[:100]" />...</p>
+                  <a t-att-href="'/campaign/%s' % campaign.id" class="btn btn-primary">View Details</a>
+                </div>
+              </div>
+            </div>
+          </t>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <!-- Campaign Detail Template -->
+  <template id="campaign_detail_template" name="Campaign Detail">
+    <t t-call="website.layout">
+      <div class="container my-5">
+        <h2><t t-esc="campaign.title"/></h2>
+
+        <img t-if="campaign.image" t-att-src="'/web/image/%s/%s/image' % (campaign._name, campaign.id)" class="card-img-top" style="height:100px; object-fit:cover;"/>
+        <p><t t-esc="campaign.description"/></p>
+        <p><strong>Start Date:</strong> <t t-esc="campaign.start_date"/></p>
+        <p><strong>End Date:</strong> <t t-esc="campaign.end_date"/></p>
+        <p><strong>Amount:</strong> ₹<t t-esc="campaign.goal_amount"/></p>
+
+      </div>
+    </t>
+  </template>
+
+<!--  Create the Campaign-->
+
+  <template id="campaign_create_form_template" name="Create Campaign Form">
+  <t t-call="website.layout">
+    <div class="container my-5">
+      <h2>Create a New Campaign</h2>
+      <form action="/create-campaign" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Campaign Name</label>
+          <input type="text" name="title" class="form-control" required="1"/>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" class="form-control" required="1"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Goal Amount</label>
+          <input type="number" name="goal_amount" class="form-control" step="any"/>
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" name="start_date" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          <input type="date" name="end_date" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Image</label>
+          <input type="file" name="image" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Create Campaign</button>
+      </form>
+    </div>
+  </t>
+</template>
+
+
+
+
+  <!-- templates.xml -->
+
+
+<template id="donation_selection_template" name="Donation Selection Page">
+    <t t-call="website.layout">
+        <div class="container my-5">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-primary">Make a Donation</h2>
+                <p class="text-muted">Choose a donation type and fill in your preferences below.</p>
+            </div>
+
+            <!-- Card Container -->
+            <div class="card shadow-lg p-4 border-0 rounded-4">
+                <!-- Tabs Navigation -->
+                <ul class="nav nav-tabs nav-fill mb-4 rounded-pill overflow-hidden bg-light" id="donationTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active fw-bold" id="general-tab" data-bs-toggle="tab" href="#general" role="tab">General Donations</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link fw-bold" id="event-tab" data-bs-toggle="tab" href="#event" role="tab">Event Donations</a>
+                    </li>
+                </ul>
+
+                <!-- Tabs Content -->
+                <div class="tab-content" id="donationTabContent">
+                    <div class="tab-pane fade show active" id="general" role="tabpanel">
+                        <t t-call="donation_system.donation_form_block"/>
+                    </div>
+                    <div class="tab-pane fade" id="event" role="tabpanel">
+                        <t t-call="donation_system.donation_form_block"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .btn-check:checked + .btn {
+                background-color: #0d6efd;
+                color: white;
+                font-weight: 600;
+            }
+            .btn-outline-dark, .btn-outline-primary, .btn-outline-info, .btn-outline-success, .btn-outline-secondary {
+                min-width: 90px;
+                border-radius: 20px;
+            }
+            .form-check {
+                margin-bottom: 10px;
+            }
+        </style>
+
+        <!-- Bootstrap Tabs JS -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const tabs = document.querySelectorAll('#donationTabs a');
+                tabs.forEach(tab => {
+                    tab.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        $(tab).tab('show');
+                    });
+                });
+            });
+        </script>
+    </t>
+</template>
+
+<template id="donation_form_block" name="Donation Form Block">
+    <!-- Donor Type -->
+    <div class="mb-5 text-center">
+        <h4 class="fw-bold mb-3">Donation Type:</h4>
+        <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="donor_type" id="individual" />
+            <label class="btn btn-outline-primary" for="individual">Individual</label>
+
+            <input type="radio" class="btn-check" name="donor_type" id="corporate"/>
+            <label class="btn btn-outline-success" for="corporate">Corporate</label>
+
+            <input type="radio" class="btn-check" name="donor_type" id="anonymous"/>
+            <label class="btn btn-outline-secondary" for="anonymous">Anonymous</label>
+        </div>
+    </div>
+
+    <!-- Frequency -->
+    <div class="mb-5 text-center">
+        <h4 class="fw-bold mb-3">Donation Frequency:</h4>
+        <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="frequency" id="onetime" />
+            <label class="btn btn-outline-primary" for="onetime">One-time</label>
+
+            <input type="radio" class="btn-check" name="frequency" id="monthly"/>
+            <label class="btn btn-outline-primary" for="monthly">Monthly</label>
+
+            <input type="radio" class="btn-check" name="frequency" id="annually"/>
+            <label class="btn btn-outline-primary" for="annually">Annually</label>
+        </div>
+    </div>
+
+    <!-- Amount -->
+    <div class="mb-5 text-center">
+        <h4 class="fw-bold mb-3">Choose Amount:</h4>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+            <input type="radio" class="btn-check" name="amount" id="amt25" value="25"/>
+            <label class="btn btn-outline-dark" for="amt25">$25</label>
+
+            <input type="radio" class="btn-check" name="amount" id="amt50" value="50"/>
+            <label class="btn btn-outline-dark" for="amt50">$50</label>
+
+            <input type="radio" class="btn-check" name="amount" id="amt100" value="100"/>
+            <label class="btn btn-outline-dark" for="amt100">$100</label>
+
+            <input type="radio" class="btn-check" name="amount" id="other" value="other"/>
+            <label class="btn btn-outline-dark" for="other">Other</label>
+        </div>
+
+        <!-- Other Amount Input -->
+        <div class="mt-3 d-flex justify-content-center">
+            <input type="number" name="other_amount" id="otherAmountInput"
+                   placeholder="Enter Other Amount"
+                   class="form-control text-center"
+                   style="max-width: 200px; display: none;"/>
+        </div>
+    </div>
+
+    <!-- Payment Type -->
+    <div class="mb-5 text-center">
+        <h4 class="fw-bold mb-3">Payment Type:</h4>
+        <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="payment" id="paynow"/>
+            <label class="btn btn-outline-info" for="paynow">PayPal</label>
+
+<!--            <input type="radio" class="btn-check" name="payment" id="stripe"/>-->
+<!--            <label class="btn btn-outline-info" for="stripe">Stripe</label>-->
+
+            <input type="radio" class="btn-check" name="payment" id="card"/>
+            <label class="btn btn-outline-info" for="card">Credit/Debit Card</label>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+        <button id="donateNowBtn" class="btn btn-success btn-lg rounded-pill px-5">Donate Now</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const otherRadio = document.getElementById('other');
+            const otherInput = document.getElementById('otherAmountInput');
+
+            document.querySelectorAll('input[name="amount"]').forEach((radio) => {
+                radio.addEventListener('change', function () {
+                    if (otherRadio.checked) {
+                        otherInput.style.display = 'inline-block';
+                    } else {
+                        otherInput.style.display = 'none';
+                    }
+                });
+            });
+
+            const donateBtn = document.getElementById('donateNowBtn');
+            donateBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const donorType = document.querySelector('input[name="donor_type"]:checked');
+                const frequency = document.querySelector('input[name="frequency"]:checked');
+                const amount = document.querySelector('input[name="amount"]:checked');
+                const payment = document.querySelector('input[name="payment"]:checked');
+                const otherAmountInput = document.getElementById('otherAmountInput');
+
+                if (!donorType) {
+                    alert("⚠️ Please select a Donor Type.");
+                    return;
+                }
+
+                if (!frequency) {
+                    alert("⚠️ Please select a Donation Frequency.");
+                    return;
+                }
+
+                if (!amount) {
+                    alert("⚠️ Please select a Donation Amount.");
+                    return;
+                }
+
+                if (amount &amp;&amp;  amount.value === 'other') {
+                    const val = otherAmountInput.value.trim();
+                    if (val === "" || isNaN(val) || parseFloat(val) &lt;= 0) {
+                        alert("⚠️ Please enter a valid amount.");
+                        return;
+                    }
+                }
+
+                if (!payment) {
+                    alert("⚠️ Please select a Payment Type.");
+                    return;
+                }
+
+                window.location.href = "/donate/form";
+            });
+        });
+    </script>
+</template>
+
+    <template id="donation_form_template" name="Donation Form">
+    <t t-call="website.layout">
+        <div class="container my-5">
+            <h2>Donation Form</h2>
+            <p>Thanks for choosing to donate. This is your donation form page.</p>
+
+            <!-- Add your form fields here -->
+<!--            <form action="/donate/submit" method="POST">-->
+<!--                <input type="text" name="donor_name" placeholder="Your Name" required class="form-control mb-2"/>-->
+<!--                <input type="email" name="email" placeholder="Your Email" class="form-control mb-2"/>-->
+<!--                <input type="number" name="amount" placeholder="Amount" required class="form-control mb-2"/>-->
+<!--                <button type="submit" class="btn btn-success">Submit Donation</button>-->
+<!--            </form>-->
+        </div>
+    </t>
+</template>
+</odoo>

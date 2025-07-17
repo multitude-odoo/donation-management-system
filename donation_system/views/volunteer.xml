@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+
+
+    <!-- Volunteer Tree View -->
+    <record id="view_volunteer_list" model="ir.ui.view">
+        <field name="name">donation.volunteer.list</field>
+        <field name="model">donation.volunteer</field>
+        <field name="arch" type="xml">
+            <list>
+                 <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Volunteer Form View -->
+    <record id="view_volunteer_form" model="ir.ui.view">
+        <field name="name">donation.volunteer.form</field>
+        <field name="model">donation.volunteer</field>
+        <field name="arch" type="xml">
+            <form string="Volunteer">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar" options="{'preview_image': 'image'}"/>
+                            <field name="campaign_id" options="{'no_create': True, 'no_open': True}" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Volunteer Kanban View -->
+    <record id="view_volunteer_kanban" model="ir.ui.view">
+        <field name="name">donation.volunteer.kanban</field>
+        <field name="model">donation.volunteer</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <img t-att-src="kanban_image('donation.volunteer', 'image', record.id.value)" class="oe_kanban_avatar" alt="Volunteer"/>
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="email"/></div>
+                                <div><field name="phone"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+        <record id="view_search_volunteer" model="ir.ui.view">
+			<field name="name">donation.volunteer.search</field>
+			<field name="model">donation.volunteer</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="name" />
+					<field name="email" />
+					<field name="phone" />
+				</search>
+			</field>
+		</record>
+
+    <!-- Action -->
+    <record id="action_donation_volunteer" model="ir.actions.act_window">
+        <field name="name">Volunteers</field>
+        <field name="res_model">donation.volunteer</field>
+        <field name="view_mode">kanban,list,form,search</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_donation_volunteer" name="Volunteers" parent="menu_donation_config" action="action_donation_volunteer" sequence="3"/>
+    </data>
+</odoo>
