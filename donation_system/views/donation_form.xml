@@ -215,6 +215,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
+          // if corporate and logged in
+
+          if (donorType.id === 'corporate' &amp;&amp; !isLoggedIn) {
+    window.location.href = "/corporate/login";
+    return;
+}
+
+
             // ✅ All valid — continue to donation form
             window.location.href = "/donate/form";
         });
@@ -376,6 +384,137 @@ document.addEventListener('DOMContentLoaded', function () {
     </t>
 </template>
 
+
+
+<!--    Corporate login-->
+
+
+    <template id="corporate_login_page" name="Corporate Donor Login">
+    <t t-call="website.layout">
+        <div class="container my-5" style="max-width: 450px;">
+            <h2 class="text-center mb-4">Log in with</h2>
+
+            <form action="/web/login" method="post" class="mb-3">
+                <div class="mb-3">
+                    <label for="login" class="form-label">Email address<span class="text-danger">*</span></label>
+                    <input type="email" name="login" id="login" required="1" class="form-control" placeholder="Enter your email to continue"/>
+                </div>
+
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                <button type="submit" class="btn btn-danger w-100 rounded-pill py-2">Log in</button>
+            </form>
+
+            <div class="text-center">
+                <a href="/web/reset_password">Forgot password?</a>
+            </div>
+
+            <div class="text-center mt-3">
+                <hr/>
+                <span class="text-muted">OR</span>
+                <div class="mt-2">
+                    <a href="/corporate/signup" class="btn btn-outline-primary w-100 rounded-pill">Sign up for an account</a>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+<!-- Corporate singup form-->
+    <template id="corporate_signup_form" name="Corporate Donor Signup Form">
+    <t t-call="website.layout">
+        <div class="container my-5" style="max-width: 700px;">
+            <h2 class="mb-4">Corporate</h2>
+            <form action="/corporate/signup/submit" method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                <!-- UEN -->
+                <div class="mb-3">
+                    <label>UEN</label>
+                    <input type="text" name="uen" class="form-control" placeholder="E.g., 198412345X" required/>
+                </div>
+
+                <!-- Company Name -->
+                <div class="mb-3">
+                    <label>Registered Company Name</label>
+                    <input type="text" name="company_name" class="form-control" placeholder="E.g., Company Pte Ltd" required/>
+                </div>
+
+                <!-- Company Address (Optional) -->
+                <div class="mb-3">
+                    <label>Company Address (Optional)</label>
+                    <div class="input-group mb-2">
+                        <input type="text" name="postal_code" class="form-control" placeholder="Enter postcode (e.g., 123456)"/>
+                        <button class="btn btn-dark" type="button">Retrieve Address</button>
+                    </div>
+                    <input type="text" name="street" class="form-control mb-2" placeholder="Block/House no., Street name"/>
+                    <input type="text" name="unit_no" class="form-control" placeholder="Enter unit no."/>
+                </div>
+
+                <!-- Name -->
+                <div class="mb-3">
+                    <label>Full Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="E.g., John Lim" required/>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label>Email Address</label>
+                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@email.com" required/>
+                </div>
+
+                <!-- Contact Number -->
+                <div class="mb-3">
+                    <label>Contact Number</label>
+                    <input type="tel" name="phone" class="form-control" placeholder="E.g., 81234567" required/>
+                </div>
+
+                <!-- Department -->
+                <div class="mb-3">
+                    <label>Department</label>
+                    <input type="text" name="department" class="form-control" placeholder="E.g., HR, Finance"/>
+                </div>
+
+                <!-- ✅ Designation (new field) -->
+                <div class="mb-3">
+                    <label>Designation</label>
+                    <input type="text" name="designation" class="form-control" placeholder="E.g., Manager, Director"/>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-5">Submit</button>
+                </div>
+            </form>
+        </div>
+    </t>
+</template>
+
+
+<!--    Anonymous Form-->
+
+    <template id="anonymous_email_prompt" name="Anonymous Email Prompt">
+    <t t-call="website.layout">
+        <div class="container my-5" style="max-width: 600px;">
+            <h3>Anonymous</h3>
+            <p>Your email will only be used for transactional matters related to your donation(s).</p>
+
+            <form method="post" action="/donate/anonymous/submit">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                <div class="mb-3">
+                    <label>Email address</label>
+                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@gmail.com" required/>
+                </div>
+
+                <div class="text-danger" t-if="error">
+                    <p>Please enter your email address.</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </form>
+        </div>
+    </t>
+</template>
 
 
 

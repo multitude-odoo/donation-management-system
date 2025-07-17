@@ -65,3 +65,43 @@ class DonationPortal(http.Controller):
     @http.route('/thank-you', type='http', auth='public', website=True)
     def thank_you(self):
         return "<h2>Thank you for signing up!</h2>"
+
+    @http.route('/corporate/login', type='http', auth='public', website=True)
+    def corporate_login_page(self, **kw):
+        return request.render('donation_system.corporate_login_page')
+
+    @http.route('/corporate/signup', type='http', auth='public', website=True)
+    def corporate_signup_form(self, **kwargs):
+        return request.render('donation_system.corporate_signup_form')
+
+    @http.route('/corporate/signup/submit', type='http', auth='public', methods=['POST'], website=True)
+    def handle_corporate_signup(self, **post):
+        # Save to model (create record) or handle as per your logic
+        request.env['res.partner'].sudo().create({
+            'name': post.get('name'),
+            'email': post.get('email'),
+            'phone': post.get('phone'),
+            'function': post.get('designation'),
+            # Add UEN, company_name, address, etc. to your model if you extend it
+        })
+        return request.redirect('/thank-you')
+        # return request.render('donation_system.signup_thank_you')
+
+    @http.route('/donate/anonymous', type='http', auth='public', website=True)
+    def anonymous_email_form(self, **kwargs):
+        return request.render('donation_system.anonymous_email_prompt', {})
+
+    @http.route('/donate/anonymous/submit', type='http', auth='public', website=True, methods=['POST'])
+    def anonymous_email_submit(self, **post):
+        email = post.get('email')
+
+        if not email:
+            return request.render('donation_system.anonymous_email_prompt', {'error': True})
+
+        return request.redirect('/thank-you')
+        # Save or process anonymous donation info
+        # request.env['donation.anonymous'].sudo().create({
+        #     'email': email
+        # })
+        #
+        # return request.render('donation_system.anonymous_thank_you')
