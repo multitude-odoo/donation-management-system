@@ -32,14 +32,10 @@
     'css': [],
     'images': ['static/description/icon.png'],
     'installable': True,
-    'auto_install': False,
-    'license': 'LGPL-3',
     'application': True,
-    'sequence': 1,
-    'assets': {},
-    # DISABLE TESTS
+    'license': 'LGPL-3',
+    # Remove test triggering
     'post_init_hook': None,
-    'uninstall_hook': None,
-    'pre_init_hook': None,
+
 
 }
