@@ -50,7 +50,18 @@ class DonationPortal(http.Controller):
 
     @http.route('/signup/save', type='http', auth='public', website=True, csrf=False)
     def signup_save(self, **post):
-        pass
+        request.env['res.partner'].sudo().create({
+            'name': post.get('name'),
+            'email': post.get('email'),
+            'phone': post.get('contact'),
+            'identification_type': 'nric',
+            'identification_number': post.get('nric'),
+            'dob': post.get('dob'),
+            'sex': post.get('sex'),
+            'donor_type': 'personal',
+            'is_donor':'true'
+        })
+        return request.redirect('/thank-you')
         # Save to CRM or Contact model (example uses res.partner)
         # request.env['res.partner'].sudo().create({
         #     'name': post.get('name'),
@@ -77,7 +88,19 @@ class DonationPortal(http.Controller):
 
     @http.route('/corporate/signup/submit', type='http', auth='public', methods=['POST'], website=True)
     def handle_corporate_signup(self, **post):
-        pass
+        request.env['res.partner'].sudo().create({
+            'name': post.get('name'),
+            'email': post.get('email'),
+            'phone': post.get('phone'),
+            'identification_type': 'uen',
+            'identification_number': post.get('uen'),
+            'designation': post.get('designation'),
+            'street': post.get('street'),
+            'zip': post.get('postal_code'),
+            'donor_type': 'corporate',
+            'is_donor': 'true'
+        })
+        return request.redirect('/thank-you')
         # Save to model (create record) or handle as per your logic
         # request.env['res.partner'].sudo().create({
         #     'name': post.get('name'),
@@ -100,6 +123,15 @@ class DonationPortal(http.Controller):
         if not email:
             return request.render('donation_system.anonymous_email_prompt', {'error': True})
 
+        request.env['res.partner'].sudo().create({
+            'name': 'Anonymous',
+            'email': email,
+            'identification_type': 'email',
+            'identification_number': email,
+            'donor_type': 'anonymous',
+        })
+
+        return request.redirect('/thank-you')
         # return request.redirect('/thank-you')
         # Save or process anonymous donation info
         # request.env['donation.anonymous'].sudo().create({

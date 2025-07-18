@@ -335,58 +335,65 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
 <template id="signup_info_form" name="Signup Info Form">
     <t t-call="website.layout">
-        <div class="container my-5" style="max-width: 600px;">
-            <h3 class="text-center mb-4">Personal Information</h3>
+        <div class="d-flex justify-content-center align-items-center py-5"
+             style="min-height: 100vh; background-image: url('/donation_system/static/description/test2.jpg'); background-size: cover; background-position: center;">
+            <div class="card shadow-lg p-4 w-100" style="max-width: 600px; border-radius: 12px; background-color: rgba(255, 255, 255, 0.95);">
+                <h3 class="text-center mb-4">Personal Information</h3>
 
-            <form action="/signup/save" method="post">
+                <form action="/signup/save" method="post">
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">Full Name</label>
-                    <input type="text" id="name" name="name" class="form-control" required="1"/>
-                </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name (as per NRIC/FIN)</label>
+                        <input type="text" id="name" name="name" class="form-control" required="1" />
+                    </div>
 
-                <div class="mb-3">
-                    <label for="nric" class="form-label">NRIC</label>
-                    <input type="text" id="nric" name="nric" class="form-control" required="1"/>
-                </div>
+                    <div class="mb-3">
+                        <label for="nric" class="form-label">NRIC/FIN</label>
+                        <input type="text" id="nric" name="nric" class="form-control" required="1" />
+                    </div>
 
-                <div class="mb-3">
-                    <label for="dob" class="form-label">Date of Birth</label>
-                    <input type="date" id="dob" name="dob" class="form-control" required="1"/>
-                </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" required="1" />
+                    </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-control" required="1"/>
-                </div>
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Contact Number</label>
+                        <input type="tel" id="contact" name="contact" class="form-control" required="1" value="+65" />
+                    </div>
 
-                <div class="mb-3">
-                    <label for="contact" class="form-label">Contact Number</label>
-                    <input type="tel" id="contact" name="contact" class="form-control" required="1"/>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address (Optional)</label>
+                        <div class="input-group mb-2">
+                            <input type="text" name="postal_code" class="form-control" placeholder="Enter postcode (e.g., 123456)" />
+                            <button class="btn btn-dark" type="button">Retrieve Address</button>
+                        </div>
+                        <input type="text" name="street" class="form-control mb-2" placeholder="Block/House no., Street name" />
+                        <input type="text" name="unit_no" class="form-control" placeholder="Enter unit no." />
+                    </div>
 
-                <!-- ✅ NEW FIELD -->
-                <div class="mb-3">
-                    <label for="sex" class="form-label">Sex</label>
-                    <select id="sex" name="sex" class="form-control" required="1">
-                        <option value="">Select</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="others">Others</option>
-                    </select>
-                </div>
+                    <div class="mb-4">
+                        <label for="sex" class="form-label">Sex</label>
+                        <select id="sex" name="sex" class="form-select" required="1">
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary px-5">Submit</button>
-                </div>
-            </form>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary px-5 py-2">Submit</button>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </t>
 </template>
+
 
 
 
@@ -424,74 +431,80 @@ document.addEventListener('DOMContentLoaded', function () {
     </t>
 </template>
 
+
 <!-- Corporate singup form-->
+
     <template id="corporate_signup_form" name="Corporate Donor Signup Form">
     <t t-call="website.layout">
-        <div class="container my-5" style="max-width: 700px;">
-            <h2 class="mb-4">Corporate</h2>
-            <form action="/corporate/signup/submit" method="post">
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <div class="d-flex justify-content-center align-items-center py-5"
+             style="min-height: 100vh; background-image: url('/donation_system/static/description/test2.jpg'); background-size: cover; background-position: center;">
+            <div class="card shadow-lg p-4 w-100" style="max-width: 700px; border-radius: 12px; background-color: rgba(255,255,255,0.95);">
+                <h2 class="text-center mb-4">Corporate</h2>
+                <form action="/corporate/signup/submit" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
 
-                <!-- UEN -->
-                <div class="mb-3">
-                    <label>UEN</label>
-                    <input type="text" name="uen" class="form-control" placeholder="E.g., 198412345X" required="1"/>
-                </div>
-
-                <!-- Company Name -->
-                <div class="mb-3">
-                    <label>Registered Company Name</label>
-                    <input type="text" name="company_name" class="form-control" placeholder="E.g., Company Pte Ltd" required="1"/>
-                </div>
-
-                <!-- Company Address (Optional) -->
-                <div class="mb-3">
-                    <label>Company Address (Optional)</label>
-                    <div class="input-group mb-2">
-                        <input type="text" name="postal_code" class="form-control" placeholder="Enter postcode (e.g., 123456)"/>
-                        <button class="btn btn-dark" type="button">Retrieve Address</button>
+                    <!-- UEN -->
+                    <div class="mb-3">
+                        <label>UEN</label>
+                        <input type="text" name="uen" class="form-control" placeholder="E.g., 198412345X" required="1" />
                     </div>
-                    <input type="text" name="street" class="form-control mb-2" placeholder="Block/House no., Street name"/>
-                    <input type="text" name="unit_no" class="form-control" placeholder="Enter unit no."/>
-                </div>
 
-                <!-- Name -->
-                <div class="mb-3">
-                    <label>Full Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="E.g., John Lim" required="1"/>
-                </div>
+                    <!-- Company Name -->
+                    <div class="mb-3">
+                        <label>Registered Company Name</label>
+                        <input type="text" name="company_name" class="form-control" placeholder="E.g., Company Pte Ltd" required="1" />
+                    </div>
 
-                <!-- Email -->
-                <div class="mb-3">
-                    <label>Email Address</label>
-                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@email.com" required="1"/>
-                </div>
+                    <!-- Company Address (Optional) -->
+                    <div class="mb-3">
+                        <label>Company Address (Optional)</label>
+                        <div class="input-group mb-2">
+                            <input type="text" name="postal_code" class="form-control" placeholder="Enter postcode (e.g., 123456)" />
+                            <button class="btn btn-dark" type="button">Retrieve Address</button>
+                        </div>
+                        <input type="text" name="street" class="form-control mb-2" placeholder="Block/House no., Street name" />
+                        <input type="text" name="unit_no" class="form-control" placeholder="Enter unit no." />
+                    </div>
 
-                <!-- Contact Number -->
-                <div class="mb-3">
-                    <label>Contact Number</label>
-                    <input type="tel" name="phone" class="form-control" placeholder="E.g., 81234567" required="1"/>
-                </div>
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="E.g., John Lim" required="1" />
+                    </div>
 
-                <!-- Department -->
-                <div class="mb-3">
-                    <label>Department</label>
-                    <input type="text" name="department" class="form-control" placeholder="E.g., HR, Finance"/>
-                </div>
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label>Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="E.g., abc@email.com" required="1" />
+                    </div>
 
-                <!-- ✅ Designation (new field) -->
-                <div class="mb-3">
-                    <label>Designation</label>
-                    <input type="text" name="designation" class="form-control" placeholder="E.g., Manager, Director"/>
-                </div>
+                    <!-- Contact Number -->
+                    <div class="mb-3">
+                        <label>Contact Number</label>
+                        <input type="tel" name="phone" class="form-control" placeholder="E.g., 81234567" required="1" />
+                    </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary px-5">Submit</button>
-                </div>
-            </form>
+                    <!-- Department -->
+                    <div class="mb-3">
+                        <label>Department</label>
+                        <input type="text" name="department" class="form-control" placeholder="E.g., HR, Finance" />
+                    </div>
+
+                    <!-- Designation -->
+                    <div class="mb-3">
+                        <label>Designation</label>
+                        <input type="text" name="designation" class="form-control" placeholder="E.g., Manager, Director" />
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary px-5">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </t>
 </template>
+
 
 
 <!--    Anonymous Form-->
@@ -519,10 +532,4 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </t>
 </template>
-
-
-
-
-
-
 </odoo>

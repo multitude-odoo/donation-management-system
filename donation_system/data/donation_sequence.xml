@@ -7,5 +7,17 @@
             <field name="padding">4</field>
             <field name="number_next">1</field>
         </record>
+
+
+
+        <record id="seq_donor_account" model="ir.sequence">
+            <field name="name">Donor Account ID</field>
+            <field name="code">donor.account</field>
+            <field name="prefix"></field>
+            <field name="padding">6</field>
+        </record>
+
+
     </data>
 </odoo>
+
