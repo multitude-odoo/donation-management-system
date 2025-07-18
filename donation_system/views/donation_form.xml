@@ -221,6 +221,10 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = "/corporate/login";
     return;
 }
+           if (donorType.id === 'anonymous' &amp;&amp; !isLoggedIn) {
+    window.location.href = "/donate/anonymous";
+    return;
+}
 
 
             // ✅ All valid — continue to donation form
@@ -431,13 +435,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 <!-- UEN -->
                 <div class="mb-3">
                     <label>UEN</label>
-                    <input type="text" name="uen" class="form-control" placeholder="E.g., 198412345X" required/>
+                    <input type="text" name="uen" class="form-control" placeholder="E.g., 198412345X" required="1"/>
                 </div>
 
                 <!-- Company Name -->
                 <div class="mb-3">
                     <label>Registered Company Name</label>
-                    <input type="text" name="company_name" class="form-control" placeholder="E.g., Company Pte Ltd" required/>
+                    <input type="text" name="company_name" class="form-control" placeholder="E.g., Company Pte Ltd" required="1"/>
                 </div>
 
                 <!-- Company Address (Optional) -->
@@ -454,19 +458,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 <!-- Name -->
                 <div class="mb-3">
                     <label>Full Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="E.g., John Lim" required/>
+                    <input type="text" name="name" class="form-control" placeholder="E.g., John Lim" required="1"/>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
                     <label>Email Address</label>
-                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@email.com" required/>
+                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@email.com" required="1"/>
                 </div>
 
                 <!-- Contact Number -->
                 <div class="mb-3">
                     <label>Contact Number</label>
-                    <input type="tel" name="phone" class="form-control" placeholder="E.g., 81234567" required/>
+                    <input type="tel" name="phone" class="form-control" placeholder="E.g., 81234567" required="1"/>
                 </div>
 
                 <!-- Department -->
@@ -503,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 <div class="mb-3">
                     <label>Email address</label>
-                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@gmail.com" required/>
+                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@gmail.com" required="1"/>
                 </div>
 
                 <div class="text-danger" t-if="error">

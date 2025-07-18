@@ -34,8 +34,7 @@
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
-    # Remove test triggering
-    'post_init_hook': None,
+
 
 
 }

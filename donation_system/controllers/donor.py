@@ -50,17 +50,18 @@ class DonationPortal(http.Controller):
 
     @http.route('/signup/save', type='http', auth='public', website=True, csrf=False)
     def signup_save(self, **post):
+        pass
         # Save to CRM or Contact model (example uses res.partner)
-        request.env['res.partner'].sudo().create({
-            'name': post.get('name'),
-            'email': post.get('email'),
-            'phone': post.get('contact'),
-            'x_nric': post.get('nric'),
-            'x_dob': post.get('dob'),
-            'x_sex': post.get('sex'),
-        })
-
-        return request.redirect('/thank-you')
+        # request.env['res.partner'].sudo().create({
+        #     'name': post.get('name'),
+        #     'email': post.get('email'),
+        #     'phone': post.get('contact'),
+        #     'x_nric': post.get('nric'),
+        #     'x_dob': post.get('dob'),
+        #     'x_sex': post.get('sex'),
+        # })
+        #
+        # return request.redirect('/thank-you')
 
     @http.route('/thank-you', type='http', auth='public', website=True)
     def thank_you(self):
@@ -76,15 +77,16 @@ class DonationPortal(http.Controller):
 
     @http.route('/corporate/signup/submit', type='http', auth='public', methods=['POST'], website=True)
     def handle_corporate_signup(self, **post):
+        pass
         # Save to model (create record) or handle as per your logic
-        request.env['res.partner'].sudo().create({
-            'name': post.get('name'),
-            'email': post.get('email'),
-            'phone': post.get('phone'),
-            'function': post.get('designation'),
-            # Add UEN, company_name, address, etc. to your model if you extend it
-        })
-        return request.redirect('/thank-you')
+        # request.env['res.partner'].sudo().create({
+        #     'name': post.get('name'),
+        #     'email': post.get('email'),
+        #     'phone': post.get('phone'),
+        #     'function': post.get('designation'),
+        #     # Add UEN, company_name, address, etc. to your model if you extend it
+        # })
+        # return request.redirect('/thank-you')
         # return request.render('donation_system.signup_thank_you')
 
     @http.route('/donate/anonymous', type='http', auth='public', website=True)
@@ -98,7 +100,7 @@ class DonationPortal(http.Controller):
         if not email:
             return request.render('donation_system.anonymous_email_prompt', {'error': True})
 
-        return request.redirect('/thank-you')
+        # return request.redirect('/thank-you')
         # Save or process anonymous donation info
         # request.env['donation.anonymous'].sudo().create({
         #     'email': email
