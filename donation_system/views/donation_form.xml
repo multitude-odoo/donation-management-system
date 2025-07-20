@@ -135,7 +135,7 @@
         <h4 class="fw-bold mb-3">Payment Type:</h4>
         <div class="btn-group" role="group">
             <input type="radio" class="btn-check" name="payment" id="paynow"/>
-            <label class="btn btn-outline-info" for="paynow">PayPal</label>
+            <label class="btn btn-outline-info" for="paynow">PayNow</label>
 
 
             <input type="radio" class="btn-check" name="payment" id="card"/>

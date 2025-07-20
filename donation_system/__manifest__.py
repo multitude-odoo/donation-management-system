@@ -7,7 +7,7 @@
     'website': 'http://www.dextratechnologies.com',
     'summary': 'Manage charity donations, volunteers, campaigns and payments',
     'description': "",
-    'depends': ['base', 'mail','website'],
+    'depends': ['base', 'mail','website','crm'],
     'data': [
         # 'security/security.xml',
         'security/ir.model.access.csv',

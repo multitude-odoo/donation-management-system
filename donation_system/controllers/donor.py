@@ -56,7 +56,7 @@ class DonationPortal(http.Controller):
             'phone': post.get('contact'),
             'identification_type': 'nric',
             'identification_number': post.get('nric'),
-            'dob': post.get('dob'),
+            # 'dob': post.get('dob'),
             'sex': post.get('sex'),
             'donor_type': 'personal',
             'is_donor':'true'

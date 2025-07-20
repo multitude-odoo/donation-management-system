@@ -70,11 +70,21 @@
         </field>
     </record>
 
+
+        <!-- Rename the action name from Customers to Donors -->
+    <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="name">Donors</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('is_donor', '=', True)]</field>
+    </record>
+
         <record id="view_partner_form_inherit_donor" model="ir.ui.view">
     <field name="name">res.partner.form.inherit.donor</field>
     <field name="model">res.partner</field>
     <field name="inherit_id" ref="base.view_partner_form"/>
     <field name="arch" type="xml">
+
+
         <!-- ✅ Insert Donor Info above the notebook -->
         <xpath expr="//sheet/notebook" position="before">
             <group string="Donor Information" >
@@ -87,6 +97,9 @@
                 <field name="designation"/>
                 <field name="postal_code"/>
                 <field name="street_2"/>
+<!--                <field name="sex"/>-->
+<!--                <field name="donation_amount"/>-->
+<!--                <field name="donation_date"/>-->
             </group>
         </xpath>
     </field>

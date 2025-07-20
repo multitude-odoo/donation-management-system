@@ -89,6 +89,9 @@ class ResPartner(models.Model):
         ('others', 'Others')
     ], string="Sex")
     dob = fields.Date(string="Date of Birth")
+    type = fields.Selection([('person', 'Individual'), ('company', 'Company')])
+    donation_date = fields.Datetime("Donation Date", default=fields.Datetime.now)
+    donation_amount = fields.Float("Amount")
 
     def _generate_donor_account_id(self, donor_type):
         year = datetime.now().year
@@ -101,3 +104,15 @@ class ResPartner(models.Model):
         if not vals.get('donor_account_id') and vals.get('donor_type'):
             vals['donor_account_id'] = self._generate_donor_account_id(vals['donor_type'])
         return super(ResPartner, self).create(vals)
+
+
+class DonationSale(models.Model):
+    _name = 'donation.sale'
+    _description = 'Donation Record'
+
+    donor_id = fields.Many2one('res.partner', string="Donor", required=True)
+    donation_amount = fields.Float("Amount", required=True)
+    frequency = fields.Selection([('onetime', 'One-time'), ('monthly', 'Monthly'), ('annually', 'Annually')])
+    payment_method = fields.Selection([('paynow', 'PayNow'), ('card', 'Credit/Debit Card')])
+    credit_card_last4 = fields.Char("Last 4 Digits of Card")  # Optional
+    donation_date = fields.Datetime("Donation Date", default=fields.Datetime.now)

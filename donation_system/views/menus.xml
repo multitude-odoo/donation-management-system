@@ -2,6 +2,11 @@
 <odoo>
 
 <data>
+      <!-- Rename 'Customers' under CRM → Sales to 'Donors' -->
+        <record id="crm.res_partner_menu_customer" model="ir.ui.menu">
+            <field name="name">Donors</field>
+        </record>
+
 	<menuitem id="menu_donation" name="Donations"  sequence="210" web_icon="donation_system/static/description/icon.png"  />
 
 	<!-- Hgp Hostel Process Menus -->
