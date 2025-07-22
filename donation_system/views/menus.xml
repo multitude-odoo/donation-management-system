@@ -37,7 +37,7 @@
       id="menu_donation_record"
       name="Donation"
       parent="crm.crm_menu_sales"
-      action="action_donation_sale_records"
+      action="donation_system.action_donation_sale_records"
       sequence="2" />
 
       <menuitem id="menu_donation" name="Donations"  sequence="210" web_icon="donation_system/static/description/icon.png"  />
