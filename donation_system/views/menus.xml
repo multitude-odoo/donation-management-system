@@ -1,26 +1,47 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+  <data>
 
-<data>
-      <!-- Rename 'Customers' under CRM → Sales to 'Donors' -->
-        <record id="crm.res_partner_menu_customer" model="ir.ui.menu">
-            <field name="name">Donors</field>
-        </record>
+    <!-- ✅ Rename the Sales menu to Donations -->
+    <record id="crm.crm_menu_sales" model="ir.ui.menu">
+      <field name="name">Donations</field>
+    </record>
 
-	<menuitem id="menu_donation" name="Donations"  sequence="210" web_icon="donation_system/static/description/icon.png"  />
+    <!-- ✅ Hide 'Pipeline' (Opportunities) and 'My Activities' menus -->
+    <record id="crm.menu_crm_opportunities" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    </record>
 
-	<!-- Hgp Hostel Process Menus -->
-<!--	<menuitem id="menu_hgp_hostel_process" name="Process" parent="menu_hgp_hostel" sequence="1" />-->
-<!--	<menuitem id="menu_hgp_hosteller_process" name="Hosteller" parent="menu_hgp_hostel_process" sequence="2" />-->
+    <record id="crm.crm_lead_menu_my_activities" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    </record>
 
-	<!-- Hgp Hostel Activity Menus -->
-<!--	<menuitem id="menu_hgp_hostel_activity" name="Activity" parent="menu_hgp_hostel" sequence="2" />-->
-<!--	<menuitem id="menu_allocation_hostel_activity" name="Allocation" parent="menu_hgp_hostel_activity" sequence="1" />-->
+      <record id="crm.sales_team_menu_team_pipeline" model="ir.ui.menu">
+           <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+      </record>
 
-	<!-- Hgp Hostel Report Menus -->
-<!--	<menuitem id="menu_hgp_hostel_report" name="Report" parent="menu_hgp_hostel" sequence="3" />-->
+       <record id="crm.res_partner_menu_customer" model="ir.ui.menu">
+           <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+      </record>
 
-	<!-- Hgp Hostel Configuration Menus -->
-	<menuitem id="menu_donation_config" name="Configuration" parent="menu_donation" sequence="4" />
-</data>
+
+     <menuitem
+      id="menu_donor_volunteer"
+      name="Donors/Volunteer"
+      parent="crm.crm_menu_sales"
+      action="base.action_partner_form"
+      sequence="1" />
+
+    <!-- ✅ Add Donations submenu (under Donations main menu) -->
+    <menuitem
+      id="menu_donation_record"
+      name="Donation"
+      parent="crm.crm_menu_sales"
+      action="donation_system.action_donation_sale_records"
+      sequence="2" />
+
+      <menuitem id="menu_donation" name="Donations"  sequence="210" web_icon="donation_system/static/description/icon.png"  />
+      <menuitem id="menu_donation_config" name="Configuration" parent="menu_donation" sequence="4" />
+
+  </data>
 </odoo>

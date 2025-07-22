@@ -42,26 +42,26 @@ class DonationPortal(http.Controller):
     def singpass_login(self):
         return request.render("donation_system.singpass_login")
 
-    @http.route('/signup/info', type='http', auth='public', website=True)
-    def signup_info(self, **kw):
-        # If data is coming from SingPass, pre-fill
-        user_data = request.session.get('singpass_user_data', {})
-        return request.render('donation_system.signup_info_form', user_data)
-
-    @http.route('/signup/save', type='http', auth='public', website=True, csrf=False)
-    def signup_save(self, **post):
-        request.env['res.partner'].sudo().create({
-            'name': post.get('name'),
-            'email': post.get('email'),
-            'phone': post.get('contact'),
-            'identification_type': 'nric',
-            'identification_number': post.get('nric'),
-            # 'dob': post.get('dob'),
-            'sex': post.get('sex'),
-            'donor_type': 'personal',
-            'is_donor':'true'
-        })
-        return request.redirect('/thank-you')
+    # @http.route('/signup/info', type='http', auth='public', website=True)
+    # def signup_info(self, **kw):
+    #     # If data is coming from SingPass, pre-fill
+    #     user_data = request.session.get('singpass_user_data', {})
+    #     return request.render('donation_system.signup_info_form', user_data)
+    #
+    # @http.route('/signup/save', type='http', auth='public', website=True, csrf=False)
+    # def signup_save(self, **post):
+    #     request.env['res.partner'].sudo().create({
+    #         'name': post.get('name'),
+    #         'email': post.get('email'),
+    #         'phone': post.get('contact'),
+    #         'identification_type': 'nric',
+    #         'identification_number': post.get('nric'),
+    #         # 'dob': post.get('dob'),
+    #         'sex': post.get('sex'),
+    #         'donor_type': 'personal',
+    #         'is_donor':'true'
+    #     })
+    #     return request.redirect('/thank-you')
         # Save to CRM or Contact model (example uses res.partner)
         # request.env['res.partner'].sudo().create({
         #     'name': post.get('name'),

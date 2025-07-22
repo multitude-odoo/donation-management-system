@@ -109,10 +109,11 @@ class ResPartner(models.Model):
 class DonationSale(models.Model):
     _name = 'donation.sale'
     _description = 'Donation Record'
+    _rec_name = 'donor_id'
 
-    donor_id = fields.Many2one('res.partner', string="Donor", required=True)
-    donation_amount = fields.Float("Amount", required=True)
-    frequency = fields.Selection([('onetime', 'One-time'), ('monthly', 'Monthly'), ('annually', 'Annually')])
-    payment_method = fields.Selection([('paynow', 'PayNow'), ('card', 'Credit/Debit Card')])
+    donor_id = fields.Many2one('res.partner', string="Donor", )
+    donation_amount = fields.Float(string="Amount")
+    frequency = fields.Selection([('onetime', 'One-time'), ('monthly', 'Monthly'), ('annually', 'Annually')],string="Frequency")
+    payment_method = fields.Selection([('paynow', 'PayNow'), ('card', 'Credit/Debit Card'),('stripe','Stripe')],string="Payment ")
     credit_card_last4 = fields.Char("Last 4 Digits of Card")  # Optional
-    donation_date = fields.Datetime("Donation Date", default=fields.Datetime.now)
+    donation_date = fields.Datetime(string="Donation Date", default=fields.Datetime.now)

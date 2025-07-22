@@ -80,12 +80,6 @@
     </div>
 
 
-<!--    <div class="text-center">-->
-<!--        <button type="button" class="btn btn-primary">Submit</button>-->
-<!--    </div>-->
-
-
-
     <!-- Frequency -->
     <div class="mb-5 text-center">
         <h4 class="fw-bold mb-3">Donation Frequency:</h4>
@@ -131,110 +125,166 @@
     </div>
 
     <!-- Payment Type -->
-    <div class="mb-5 text-center">
-        <h4 class="fw-bold mb-3">Payment Type:</h4>
-        <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="payment" id="paynow"/>
-            <label class="btn btn-outline-info" for="paynow">PayNow</label>
+<!--    <div class="mb-5 text-center">-->
+<!--        <h4 class="fw-bold mb-3">Payment Type:</h4>-->
+<!--        <div class="btn-group" role="group">-->
+<!--            <input type="radio" class="btn-check" name="payment" id="paynow"/>-->
+<!--            <label class="btn btn-outline-info" for="paynow">PayNow</label>-->
 
-             <input type="radio" class="btn-check" name="payment" id="stripe"/>
-            <label class="btn btn-outline-info" for="stripe">Stripe</label>
+<!--             <input type="radio" class="btn-check" name="payment" id="stripe"/>-->
+<!--            <label class="btn btn-outline-info" for="stripe">Stripe</label>-->
 
-            <input type="radio" class="btn-check" name="payment" id="card"/>
-            <label class="btn btn-outline-info" for="card">Credit/Debit Card</label>
-        </div>
-    </div>
+<!--            <input type="radio" class="btn-check" name="payment" id="card"/>-->
+<!--            <label class="btn btn-outline-info" for="card">Credit/Debit Card</label>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <!-- Submit Button -->
-    <div class="text-center">
-        <button id="donateNowBtn" class="btn btn-success btn-lg rounded-pill px-5">Donate Now</button>
-    </div>
+<!--    <div class="text-center">-->
+<!--        <button id="donateNowBtn" class="btn btn-success btn-lg rounded-pill px-5">Donate Now</button>-->
+<!--    </div>-->
 
-      <script>
+<!--      <script>-->
+<!--                document.addEventListener('DOMContentLoaded', function () {-->
+<!--                    const individualRadio = document.getElementById('individual');-->
+<!--                    const otherRadio = document.getElementById('other');-->
+<!--                    const otherInput = document.getElementById('otherAmountInput');-->
+<!--                    const donateBtn = document.getElementById('donateNowBtn');-->
+
+<!--                &lt;!&ndash;    // ✅ Simulate login check using userId from <body data-user-id="">&ndash;&gt;-->
+<!--                    const isLoggedIn = document.body.dataset.userId &amp;&amp; document.body.dataset.userId !== "1";-->
+
+<!--                    // ✅ Show/hide custom amount input-->
+<!--                    if (otherRadio) {-->
+<!--                        document.querySelectorAll('input[name="amount"]').forEach((radio) => {-->
+<!--                            radio.addEventListener('change', function () {-->
+<!--                                if (otherRadio.checked) {-->
+<!--                                    otherInput.style.display = 'inline-block';-->
+<!--                                } else {-->
+<!--                                    otherInput.style.display = 'none';-->
+<!--                                }-->
+<!--                            });-->
+<!--                        });-->
+<!--                    }-->
+
+<!--                    // ✅ Donation form validation + final redirection logic-->
+<!--                    if (donateBtn) {-->
+<!--                        donateBtn.addEventListener('click', function (e) {-->
+<!--                            e.preventDefault();-->
+
+<!--                            const donorType = document.querySelector('input[name="donor_type"]:checked');-->
+<!--                            const frequency = document.querySelector('input[name="frequency"]:checked');-->
+<!--                            const amount = document.querySelector('input[name="amount"]:checked');-->
+<!--                            const payment = document.querySelector('input[name="payment"]:checked');-->
+
+<!--                            if (!donorType) {-->
+<!--                                alert("⚠️ Please select a Donor Type.");-->
+<!--                                return;-->
+<!--                            }-->
+
+<!--                            if (!frequency) {-->
+<!--                                alert("⚠️ Please select a Donation Frequency.");-->
+<!--                                return;-->
+<!--                            }-->
+
+<!--                            if (!amount) {-->
+<!--                                alert("⚠️ Please select a Donation Amount.");-->
+<!--                                return;-->
+<!--                            }-->
+
+<!--                            if (amount.value === 'other') {-->
+<!--                                const val = otherInput.value.trim();-->
+<!--                                if (!val || isNaN(val) || parseFloat(val) &lt;= 0) {-->
+<!--                                    alert("⚠️ Please enter a valid amount.");-->
+<!--                                    return;-->
+<!--                                }-->
+<!--                            }-->
+
+<!--&lt;!&ndash;                            if (!payment) {&ndash;&gt;-->
+<!--&lt;!&ndash;                                alert("⚠️ Please select a Payment Type.");&ndash;&gt;-->
+<!--&lt;!&ndash;                                return;&ndash;&gt;-->
+<!--&lt;!&ndash;                            }&ndash;&gt;-->
+
+<!--                            // ✅ FINAL condition — if Individual and not logged in, redirect to login-->
+<!--                            if (donorType.id === 'individual' &amp;&amp; !isLoggedIn) {-->
+<!--                                window.location.href = "/donate/individual-auth-choice"; // or "/donate/individual-auth-choice" if you want custom screen-->
+<!--                                return;-->
+<!--                            }-->
+
+<!--                          // if corporate and logged in-->
+
+<!--                          if (donorType.id === 'corporate' &amp;&amp; !isLoggedIn) {-->
+<!--                    window.location.href = "/corporate/login";-->
+<!--                    return;-->
+<!--                }-->
+<!--                           if (donorType.id === 'anonymous' &amp;&amp; !isLoggedIn) {-->
+<!--                    window.location.href = "/donate/anonymous";-->
+<!--                    return;-->
+<!--                }-->
+
+
+<!--                            // ✅ All valid — continue to donation form-->
+<!--                            window.location.href = "/donate/form";-->
+<!--                        });-->
+<!--                    }-->
+<!--                });-->
+<!--</script>-->
+    <!-- Donation Submission Form -->
+<form id="donationFlowForm" method="post" action="/donate/form" class="text-center">
+    <input type="hidden" name="donor_type" id="donor_type_input" />
+    <input type="hidden" name="frequency" id="frequency_input" />
+    <input type="hidden" name="amount" id="amount_input" />
+    <input type="hidden" name="other_amount" id="other_amount_input" />
+
+    <button id="donateNowBtn" type="submit" class="btn btn-success btn-lg rounded-pill px-5">Donate Now</button>
+</form>
+
+<script>
 document.addEventListener('DOMContentLoaded', function () {
-    const individualRadio = document.getElementById('individual');
+    const form = document.getElementById('donationFlowForm');
+    const btn = document.getElementById('donateNowBtn');
     const otherRadio = document.getElementById('other');
     const otherInput = document.getElementById('otherAmountInput');
-    const donateBtn = document.getElementById('donateNowBtn');
 
-<!--    // ✅ Simulate login check using userId from <body data-user-id="">-->
     const isLoggedIn = document.body.dataset.userId &amp;&amp; document.body.dataset.userId !== "1";
 
-    // ✅ Show/hide custom amount input
+    // Show/hide other amount input
     if (otherRadio) {
         document.querySelectorAll('input[name="amount"]').forEach((radio) => {
             radio.addEventListener('change', function () {
-                if (otherRadio.checked) {
-                    otherInput.style.display = 'inline-block';
-                } else {
-                    otherInput.style.display = 'none';
-                }
+                otherInput.style.display = otherRadio.checked ? 'inline-block' : 'none';
             });
         });
     }
 
-    // ✅ Donation form validation + final redirection logic
-    if (donateBtn) {
-        donateBtn.addEventListener('click', function (e) {
-            e.preventDefault();
+    btn.addEventListener('click', function (e) {
+        e.preventDefault();
 
-            const donorType = document.querySelector('input[name="donor_type"]:checked');
-            const frequency = document.querySelector('input[name="frequency"]:checked');
-            const amount = document.querySelector('input[name="amount"]:checked');
-            const payment = document.querySelector('input[name="payment"]:checked');
+        const donorType = document.querySelector('input[name="donor_type"]:checked');
+        const frequency = document.querySelector('input[name="frequency"]:checked');
+        const amount = document.querySelector('input[name="amount"]:checked');
 
-            if (!donorType) {
-                alert("⚠️ Please select a Donor Type.");
-                return;
-            }
+        if (!donorType || !frequency || !amount) {
+            alert("⚠️ Please fill all required fields.");
+            return;
+        }
 
-            if (!frequency) {
-                alert("⚠️ Please select a Donation Frequency.");
-                return;
-            }
+        if (amount.value === 'other' &amp;&amp; (!otherInput.value || isNaN(otherInput.value))) {
+            alert("⚠️ Please enter a valid amount.");
+            return;
+        }
 
-            if (!amount) {
-                alert("⚠️ Please select a Donation Amount.");
-                return;
-            }
+        // Fill hidden fields
+        document.getElementById('donor_type_input').value = donorType.id;
+        document.getElementById('frequency_input').value = frequency.id;
+        document.getElementById('amount_input').value = amount.value;
+        document.getElementById('other_amount_input').value = amount.value === 'other' ? otherInput.value : "";
 
-            if (amount.value === 'other') {
-                const val = otherInput.value.trim();
-                if (!val || isNaN(val) || parseFloat(val) &lt;= 0) {
-                    alert("⚠️ Please enter a valid amount.");
-                    return;
-                }
-            }
-
-            if (!payment) {
-                alert("⚠️ Please select a Payment Type.");
-                return;
-            }
-
-            // ✅ FINAL condition — if Individual and not logged in, redirect to login
-            if (donorType.id === 'individual' &amp;&amp; !isLoggedIn) {
-                window.location.href = "/donate/individual-auth-choice"; // or "/donate/individual-auth-choice" if you want custom screen
-                return;
-            }
-
-          // if corporate and logged in
-
-          if (donorType.id === 'corporate' &amp;&amp; !isLoggedIn) {
-    window.location.href = "/corporate/login";
-    return;
-}
-           if (donorType.id === 'anonymous' &amp;&amp; !isLoggedIn) {
-    window.location.href = "/donate/anonymous";
-    return;
-}
-
-
-            // ✅ All valid — continue to donation form
-            window.location.href = "/donate/form";
-        });
-    }
+        form.submit();
+    });
 });
 </script>
+
 
 
 </template>
@@ -397,141 +447,78 @@ document.addEventListener('DOMContentLoaded', function () {
 </template>
 
 
+    <template id="donation_payment_step" name="Donation Confirmation and Payment">
+      <t t-call="website.layout">
+        <div class="container py-5" style="max-width: 700px">
+          <h2 class="text-center mb-4">Review Your Donation</h2>
 
+          <div class="card shadow-sm p-4 mb-4">
+            <h5 class="mb-3">Donation Details</h5>
+            <ul class="list-group">
+              <li class="list-group-item">Donor Type: <strong><t t-esc="(data.get('donor_type') or '').capitalize()"/></strong></li>
+              <li class="list-group-item">Frequency: <strong><t t-esc="(data.get('frequency') or '').capitalize()"/></strong></li>
+              <li class="list-group-item">Amount:
+                <strong>
+                  <t t-if="data.get('amount') == 'other'">$<t t-esc="data.get('other_amount')"/></t>
+                  <t t-else="">$<t t-esc="data.get('amount')"/></t>
+                </strong>
+              </li>
+            </ul>
+          </div>
 
-<!--    Corporate login-->
+          <div class="card shadow-sm p-4 mb-4">
+            <h5 class="mb-3">Personal Information</h5>
+            <ul class="list-group">
+              <li class="list-group-item">Name: <strong><t t-esc="data.get('name')"/></strong></li>
+              <li class="list-group-item">NRIC/FIN: <strong><t t-esc="data.get('nric')"/></strong></li>
+              <li class="list-group-item">Email: <strong><t t-esc="data.get('email')"/></strong></li>
+              <li class="list-group-item">Contact: <strong><t t-esc="data.get('contact')"/></strong></li>
+              <li class="list-group-item">Postal Code: <strong><t t-esc="data.get('postal_code')"/></strong></li>
+              <li class="list-group-item">Street: <strong><t t-esc="data.get('street')"/></strong></li>
+              <li class="list-group-item">Unit No: <strong><t t-esc="data.get('unit_no')"/></strong></li>
+              <li class="list-group-item">Sex: <strong><t t-esc="data.get('sex')"/></strong></li>
+            </ul>
+          </div>
 
+          <form action="/donate/payment/confirm" method="post">
+            <div class="text-center mb-4">
+              <h5>Select Payment Method</h5>
+              <div class="btn-group" role="group">
+                <input type="radio" class="btn-check" name="payment" id="paynow" value="paynow"/>
+                <label class="btn btn-outline-info" for="paynow">PayNow</label>
 
-    <template id="corporate_login_page" name="Corporate Donor Login">
-    <t t-call="website.layout">
-        <div class="container my-5" style="max-width: 450px;">
-            <h2 class="text-center mb-4">Log in with</h2>
+                <input type="radio" class="btn-check" name="payment" id="stripe" value="stripe"/>
+                <label class="btn btn-outline-info" for="stripe">Stripe</label>
 
-            <form action="/web/login" method="post" class="mb-3">
-                <div class="mb-3">
-                    <label for="login" class="form-label">Email address<span class="text-danger">*</span></label>
-                    <input type="email" name="login" id="login" required="1" class="form-control" placeholder="Enter your email to continue"/>
-                </div>
-
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-
-                <button type="submit" class="btn btn-danger w-100 rounded-pill py-2">Log in</button>
-            </form>
+                <input type="radio" class="btn-check" name="payment" id="card" value="card"/>
+                <label class="btn btn-outline-info" for="card">Credit/Debit Card</label>
+              </div>
+            </div>
 
             <div class="text-center">
-                <a href="/web/reset_password">Forgot password?</a>
+              <button type="submit" class="btn btn-success btn-lg rounded-pill px-5">Donate Now</button>
             </div>
-
-            <div class="text-center mt-3">
-                <hr/>
-                <span class="text-muted">OR</span>
-                <div class="mt-2">
-                    <a href="/corporate/signup" class="btn btn-outline-primary w-100 rounded-pill">Sign up for an account</a>
-                </div>
-            </div>
+          </form>
         </div>
-    </t>
+          <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form[action="/donate/payment/confirm"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function (e) {
+        const selectedPayment = form.querySelector('input[name="payment"]:checked');
+        if (!selectedPayment) {
+            e.preventDefault();
+            alert("⚠️ Please select a payment method before proceeding.");
+        }
+    });
+});
+</script>
+
+      </t>
 </template>
 
-
-<!-- Corporate singup form-->
-
-    <template id="corporate_signup_form" name="Corporate Donor Signup Form">
-    <t t-call="website.layout">
-        <div class="d-flex justify-content-center align-items-center py-5"
-             style="min-height: 100vh; background-image: url('/donation_system/static/description/test2.jpg'); background-size: cover; background-position: center;">
-            <div class="card shadow-lg p-4 w-100" style="max-width: 700px; border-radius: 12px; background-color: rgba(255,255,255,0.95);">
-                <h2 class="text-center mb-4">Corporate</h2>
-                <form action="/corporate/signup/submit" method="post">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-
-                    <!-- UEN -->
-                    <div class="mb-3">
-                        <label>UEN</label>
-                        <input type="text" name="uen" class="form-control" placeholder="E.g., 198412345X" required="1" />
-                    </div>
-
-                    <!-- Company Name -->
-                    <div class="mb-3">
-                        <label>Registered Company Name</label>
-                        <input type="text" name="company_name" class="form-control" placeholder="E.g., Company Pte Ltd" required="1" />
-                    </div>
-
-                    <!-- Company Address (Optional) -->
-                    <div class="mb-3">
-                        <label>Company Address (Optional)</label>
-                        <div class="input-group mb-2">
-                            <input type="text" name="postal_code" class="form-control" placeholder="Enter postcode (e.g., 123456)" />
-                            <button class="btn btn-dark" type="button">Retrieve Address</button>
-                        </div>
-                        <input type="text" name="street" class="form-control mb-2" placeholder="Block/House no., Street name" />
-                        <input type="text" name="unit_no" class="form-control" placeholder="Enter unit no." />
-                    </div>
-
-                    <!-- Name -->
-                    <div class="mb-3">
-                        <label>Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="E.g., John Lim" required="1" />
-                    </div>
-
-                    <!-- Email -->
-                    <div class="mb-3">
-                        <label>Email Address</label>
-                        <input type="email" name="email" class="form-control" placeholder="E.g., abc@email.com" required="1" />
-                    </div>
-
-                    <!-- Contact Number -->
-                    <div class="mb-3">
-                        <label>Contact Number</label>
-                        <input type="tel" name="phone" class="form-control" placeholder="E.g., 81234567" required="1" />
-                    </div>
-
-                    <!-- Department -->
-                    <div class="mb-3">
-                        <label>Department</label>
-                        <input type="text" name="department" class="form-control" placeholder="E.g., HR, Finance" />
-                    </div>
-
-                    <!-- Designation -->
-                    <div class="mb-3">
-                        <label>Designation</label>
-                        <input type="text" name="designation" class="form-control" placeholder="E.g., Manager, Director" />
-                    </div>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary px-5">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </t>
-</template>
-
-
-
-<!--    Anonymous Form-->
-
-    <template id="anonymous_email_prompt" name="Anonymous Email Prompt">
-    <t t-call="website.layout">
-        <div class="container my-5" style="max-width: 600px;">
-            <h3>Anonymous</h3>
-            <p>Your email will only be used for transactional matters related to your donation(s).</p>
-
-            <form method="post" action="/donate/anonymous/submit">
-                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-
-                <div class="mb-3">
-                    <label>Email address</label>
-                    <input type="email" name="email" class="form-control" placeholder="E.g., abc@gmail.com" required="1"/>
-                </div>
-
-                <div class="text-danger" t-if="error">
-                    <p>Please enter your email address.</p>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Continue</button>
-            </form>
-        </div>
-    </t>
-</template>
 </odoo>
+
+
+

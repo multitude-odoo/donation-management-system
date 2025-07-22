@@ -1,5 +1,6 @@
 <odoo>
     <data>
+
         <record id="view_form_donor" model="ir.ui.view">
             <field name="name">donation.donor.form</field>
             <field name="model">donation.donor</field>
@@ -99,6 +100,7 @@
                 <p class="o_view_nocontent_smiling_face">Create your first donor</p>
             </field>
         </record>
+
 
         <menuitem id="menu_donation_donor_root" name="Donors" parent="menu_donation_config"
                   action="action_donation_donor" sequence="2"/>

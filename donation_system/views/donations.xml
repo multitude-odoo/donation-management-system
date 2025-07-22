@@ -73,7 +73,7 @@
 
         <!-- Rename the action name from Customers to Donors -->
     <record id="base.action_partner_form" model="ir.actions.act_window">
-            <field name="name">Donors</field>
+            <field name="name">Donors/Volunteer</field>
             <field name="res_model">res.partner</field>
             <field name="domain">[('is_donor', '=', True)]</field>
     </record>
@@ -97,7 +97,7 @@
                 <field name="designation"/>
                 <field name="postal_code"/>
                 <field name="street_2"/>
-<!--                <field name="sex"/>-->
+                <field name="sex"/>
 <!--                <field name="donation_amount"/>-->
 <!--                <field name="donation_date"/>-->
             </group>
